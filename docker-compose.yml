@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  db:
+    build: ./postgres-docker
+    container_name: animal_postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    networks:
+      - backend-network
+
+  backend:
+    build: ./backend
+    container_name: animal_backend
+    ports:
+      - "5000:5000"
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_USER: postgres
+      DB_PASSWORD: postgres
+      DB_NAME: animal_shelter
+    depends_on:
+      - db
+    networks:
+      - backend-network
+
+  frontend:
+    build: ./frontend
+    container_name: animal_frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - backend-network
+
+volumes:
+  db_data:
+
+networks:
+  backend-network:
+    driver: bridge

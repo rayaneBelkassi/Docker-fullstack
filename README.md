@@ -29,7 +29,7 @@ docker-fullstack/
 
 # Commandes pour lancer le projet 
 
-git clone https://github.com/ton-user/docker-fullstack.git
+git clone https://github.com/rayaneBelkassi/Docker-fullstack
 cd docker-fullstack
 
 lancer dans le repertoire `docker-fullstack`:
